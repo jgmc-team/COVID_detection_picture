@@ -179,7 +179,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 # %%
-# path = '/home/sergio/JN/NN/COVID_detection_picture/images/test_3D_NIFTI.jpg'
+
 def plot_image(path):
     fig = go.Figure();
 #     plt.figure(figsize=(12, 12));
