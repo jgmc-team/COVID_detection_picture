@@ -202,7 +202,7 @@ def plot_result(path):
 # t_finish.seconds
 
 # %%
-main(ABS_PATH + "/MRI/sick_7c7160149aec1ebf15b28166f5458c49.nii")
+main(ABS_PATH + "/MRI/sick_7c983eabf45915f3e7e9cae2aa9a5569.nii")
 
 # %%
 #!ipynb-py-convert K8L_detect.ipynb K8L_detect.py
