@@ -134,10 +134,10 @@ def process_scan(path):
 
 ### decoder dataset from MRI-image to Numpy Ziparray ##############################################
 try:
-    os.path.exists("/content/drive/MyDrive/JN/NN/COVID_detection_picture/dataset/healthy.npz")
-    os.path.exists("/content/drive/MyDrive/JN/NN/COVID_detection_picture/dataset/sick.npz")
-    check_h = np.load("/content/drive/MyDrive/JN/NN/COVID_detection_picture/dataset/healthy.npz")["arr"]
-    check_s = np.load("/content/drive/MyDrive/JN/NN/COVID_detection_picture/dataset/sick.npz")["arr"]
+    os.path.exists("/content/drive/MyDrive/JN/NN/COVID_detection_picture/healthy.npz")
+    os.path.exists("/content/drive/MyDrive/JN/NN/COVID_detection_picture/sick.npz")
+    check_h = np.load("/content/drive/MyDrive/JN/NN/COVID_detection_picture/healthy.npz")["arr"]
+    check_s = np.load("/content/drive/MyDrive/JN/NN/COVID_detection_picture/sick.npz")["arr"]
     try:
         normal_scans = check_h
         abnormal_scans = check_s
@@ -153,9 +153,9 @@ except:
             abnormal_scans = np.squeeze(np.array(list(tqdm.tqdm(p.imap(process_scan, abnormal_scan_paths), total = value))))
 
             
-            np.savez_compressed("/content/drive/MyDrive/JN/NN/COVID_detection_picture/dataset/healthy.npz", 
+            np.savez_compressed("/content/drive/MyDrive/JN/NN/COVID_detection_picture/healthy.npz", 
                                 arr = normal_scans)
-            np.savez_compressed("/content/drive/MyDrive/JN/NN/COVID_detection_picture/dataset/sick.npz", 
+            np.savez_compressed("/content/drive/MyDrive/JN/NN/COVID_detection_picture/sick.npz", 
                                 arr = abnormal_scans)
 
 normal_scans.shape, abnormal_scans.shape
@@ -605,7 +605,7 @@ for score, name in zip(scores, class_names):
 # model.load_weights("3d_image_classification.h5")
 # loaded_model = keras.models.load_model('/home/sergio/JN/NN/COVID_detection_picture/Keras/model/model_keras_5L.h5')
 # loaded_model = keras.models.load_model('/content/drive/MyDrive/JN/NN/COVID_detection_picture/Keras/model/saved_model.pb')
-path_test_image = "/content/drive/MyDrive/JN/NN/COVID_detection_picture/MRI/sick_7c7160149aec1ebf15b28166f5458c49.nii"
+path_test_image = "/content/drive/MyDrive/JN/NN/COVID_detection_picture/MRI/sick_7c983eabf45915f3e7e9cae2aa9a5569.niii"
 test_image = process_scan(path_test_image)
 # model.load_weights("/home/sergio/JN/NN/COVID_detection_picture/Keras/model/model_keras_8L_0953.h5")
 prediction = model.predict(np.expand_dims(test_image, axis=0))[0]
@@ -623,7 +623,7 @@ for score, name in zip(scores, class_names):
 # loaded_model = keras.models.load_model('/home/sergio/JN/NN/COVID_detection_picture/Keras/model/model_keras_5L.h5')
 # loaded_model = keras.models.load_model('/content/drive/MyDrive/JN/NN/COVID_detection_picture/Keras/model/saved_model.pb')
 # path_test_image = "/content/drive/MyDrive/JN/NN/COVID_detection_picture/dataset/healthy/010722f5ce3929f8d38c961f97da1974.nii"
-path_test_image = "/content/drive/MyDrive/JN/NN/COVID_detection_picture/MRI/health_0a38b4c71a46ce68c8b48c95b93619b2.nii"
+path_test_image = "/content/drive/MyDrive/JN/NN/COVID_detection_picture/MRI/healthy_2dfd2d7087aaee9777bf6ea42de958dc.nii"
 test_image = process_scan(path_test_image)
 prediction = model.predict(np.expand_dims(test_image, axis=0))[0]
 print(prediction)
