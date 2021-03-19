@@ -85,17 +85,16 @@ import operator
 import K8L_detect
 
 # %%
-from flask import Flask, Request
-from flask import Flask, request, redirect, url_for
+# from flask import Flask, Request
+# from flask import Flask, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = os.getcwd() + '/MRI'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app = Flask(__name__)  # <---------  WTF??
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+# app = Flask(__name__)
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 # %%
 def alert_():
@@ -179,7 +178,6 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 # %%
-
 def plot_image(path):
     fig = go.Figure();
 #     plt.figure(figsize=(12, 12));
@@ -190,7 +188,7 @@ def plot_image(path):
             path = path
     except:
         print(f"Default image:")
-        path = '/С:/Users/Admin/Documents/JN/NN/COVID_detection_picture/MRI/sick_7c7160149aec1ebf15b28166f5458c49.nii'
+        path = 'С:/Users/Admin/Documents/JN/NN/COVID_detection_picture/MRI/sick_7c7160149aec1ebf15b28166f5458c49.nii'
 #     print(type(path))
     data = nib.load(path);
     print(type(data))
@@ -217,11 +215,9 @@ def plot_image(path):
 
 # %%
 BANNER = html.Div(
-    [html.H3('--Neural net detection--'),
-     html.H3(' <COVID 19> from MRI-files type--',
-             id='title'),
-     html.Img(src="https://s3-us-west-1.amazonaws.com/plotly-tutorials/logo/new-branding/dash-logo-by-plotly-stripe-inverted.png"
-         ,  style={'height':'11%', 'width':'11%'})],
+    [html.H3('Neural Net Detection'),
+     html.H3(' <COVID 19> from MRI-files type',
+             id='title')],
     className="row", ### oldName 'banner' - ok!
     style={'width': '100%', 
            'height' : '50%',
@@ -244,7 +240,7 @@ HEADER_LEFT = html.Div(
         html.Div(className = 'pretty_container',
                  children = [
         dcc.Upload(id='upload_image', 
-                   children=['Drag and Drop or .. ', 
+                   children=['Drag and Drop or ', 
                              html.A('Select an Image')]),
                    ],
 #                    style={'width': '50%', 
@@ -278,10 +274,6 @@ HEADER_CENTER  = html.Div(
                         id='button_run_operation',
                         style = {'margin-right': '10px', 'margin-top': '5px'},
                         n_clicks = 0
-                       ),
-            html.Button('Undo', id='button_undo',
-                        style={'margin-top': '5px'},
-#                        n_clicks = 0
                        ),
         ])    
     ]),
@@ -464,6 +456,7 @@ def predict_data_class(data):
 def predict_data_rate(data):
         return str(round(float(data[1]) * 100, 2)) + "%"
 
+
 ### get filename
 @app.callback(
     Output('well_file', 'children'),
@@ -471,7 +464,7 @@ def predict_data_rate(data):
 def get_name_file_(name, model, click):
     if name != None:
 #             return ["File: " + os.fspath(name), " | Model: " + model, click]
-            return ["File: " + os.path.abspath(name), " | Model: " + model, click]
+            return ["File: " + os.path.abspath(name)]
 #             return ["File: " + os.getcwd() + name, " | Model: " + model, click]
     else:
         alert()
